@@ -28,8 +28,8 @@ class AddEditPersonDialog(QtWidgets.QDialog):
         self.preview_label.setFixedSize(160, 160)
         self.preview_label.setScaledContents(True)
 
-        self.btn_from_camera = QtWidgets.QPushButton("T? camera")
-        self.btn_from_file = QtWidgets.QPushButton("T? file")
+        self.btn_from_camera = QtWidgets.QPushButton("From Camera")
+        self.btn_from_file = QtWidgets.QPushButton("From File")
 
         self.btn_from_camera.clicked.connect(self._on_from_camera)
         self.btn_from_file.clicked.connect(self._on_from_file)
@@ -153,7 +153,7 @@ class DoorbellPopup(QtWidgets.QDialog):
         ]
         info_label = QtWidgets.QLabel("\n".join(info_lines))
 
-        self.unlock_button = QtWidgets.QPushButton("M? c?a")
+        self.unlock_button = QtWidgets.QPushButton("Unlock Door")
         self.unlock_button.clicked.connect(self._on_unlock)
         self.unlock_button.setVisible(not result.get("known", False))
 

@@ -51,9 +51,9 @@ class TabLive(QtWidgets.QWidget):
         form_layout.addRow("Score", self.status_labels["score"])
         form_layout.addRow("Is real", self.status_labels["is_real"])
 
-        self.btn_capture = QtWidgets.QPushButton("Ch?p & Nh?n di?n")
-        self.btn_add = QtWidgets.QPushButton("Thêm ngu?i t? camera")
-        self.btn_unlock = QtWidgets.QPushButton("M? c?a")
+        self.btn_capture = QtWidgets.QPushButton("Capture & Recognize")
+        self.btn_add = QtWidgets.QPushButton("Add Person from Camera")
+        self.btn_unlock = QtWidgets.QPushButton("Unlock Door")
         self.btn_unlock.setEnabled(False)
 
         btn_layout = QtWidgets.QHBoxLayout()
