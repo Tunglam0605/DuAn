@@ -37,6 +37,8 @@ smart_doorbell_pro/
     models/
   logs/
     events.jsonl
+  scripts/
+    self_check.py
   run.py
   requirements.txt
   .env.example
