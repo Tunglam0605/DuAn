@@ -95,7 +95,7 @@ class Controller:
             return result
 
         embedding, face_result, face_crop = self.recognizer.extract_embedding_from_frame(frame)
-        if face_result is None or embedding is None:
+        if face_result is None:
             result["event_type"] = "no_face"
             if log_event:
                 self.event_store.log_event(**self._event_fields(result))
@@ -103,18 +103,23 @@ class Controller:
             return result
 
         result["bbox"] = face_result.bbox
-        people = self.face_db.list_people()
-        person, score = self.recognizer.match(embedding, people)
-        if person is not None:
-            result.update(
-                {
-                    "person_id": person.get("id"),
-                    "person_name": person.get("name"),
-                    "group": person.get("group"),
-                    "note": person.get("note"),
-                }
-            )
-        result["score"] = score if score >= 0 else 0.0
+        person = None
+        score = 0.0
+        if embedding is not None:
+            people = self.face_db.list_people()
+            person, score = self.recognizer.match(embedding, people)
+            if person is not None:
+                result.update(
+                    {
+                        "person_id": person.get("id"),
+                        "person_name": person.get("name"),
+                        "group": person.get("group"),
+                        "note": person.get("note"),
+                    }
+                )
+            result["score"] = score if score >= 0 else 0.0
+        else:
+            result["score"] = 0.0
 
         is_real, avg_prob, _ = self.liveness.assess(frame, face_result.bbox)
         result["is_real"] = is_real

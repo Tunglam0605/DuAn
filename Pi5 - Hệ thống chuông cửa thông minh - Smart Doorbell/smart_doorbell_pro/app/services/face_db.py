@@ -132,6 +132,8 @@ class FaceDB:
                     old_emb = _coerce_embedding(person.get("embedding", []))
                     if old_emb.size == 0:
                         merged = new_emb
+                    elif old_emb.size != new_emb.size:
+                        merged = new_emb
                     else:
                         merged = _normalize((old_emb + new_emb) / 2.0)
                     person["embedding"] = merged.astype(float).tolist()
