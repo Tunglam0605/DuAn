@@ -1,9 +1,0 @@
-numpy
-opencv-python
-mediapipe
-tflite-runtime
-onnxruntime
-gpiozero
-picamera2
-requests
-PySide6

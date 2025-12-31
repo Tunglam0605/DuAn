@@ -15,3 +15,20 @@ env/
 .DS_Store
 .vscode/
 .idea/
+
+# === Python venv (NEVER push) ===
+.venv/
+venv/
+**/.venv/
+**/venv/
+
+# === Python cache ===
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# === Logs ===
+*.log
+logs/
+**/logs/
