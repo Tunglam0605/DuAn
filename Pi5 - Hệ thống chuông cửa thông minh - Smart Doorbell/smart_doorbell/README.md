@@ -10,29 +10,23 @@ Dự án chuông cửa thông minh tích hợp **nhận diện khuôn mặt**, *
 - **API chuẩn mobile**: `/health`, `/events`, `/unlock`, `/lock`, `/media/...`.
 - **Event + ảnh**: tự lưu ảnh sự kiện + log JSONL rõ ràng.
 - **Cloudflare Tunnel tự động**: một lệnh là có URL public cho app.
-- **Mock mode**: chạy demo trên PC/webcam, giả lập GPIO/door.
+- **Mock mode**: chạy demo không cần GPIO/servo (phù hợp test nhanh).
 
 ---
 
-## Quickstart — 1 lệnh là chạy
+## Quickstart — 1 lệnh là chạy (Pi5)
 
-### Linux / Pi / macOS
+Nếu bạn **vừa clone repo** thì **chưa có `.venv`**. Hãy chạy script dưới đây, nó sẽ tự tạo venv + cài deps + chạy app.
+
+### Pi5 (Linux)
 ```bash
 ./scripts/run.sh
 ```
-Mock mode (không cần GPIO/servo, dùng webcam):
+Mock mode (không cần GPIO/servo):
 ```bash
 ./scripts/run.sh --mock
 ```
 
-### Windows (PowerShell)
-```powershell
-.\scripts\run.ps1
-```
-Mock mode:
-```powershell
-.\scripts\run.ps1 -Mock
-```
 
 ---
 
@@ -71,13 +65,9 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-- **Pi (GPIO + PiCamera):**
+- **Pi5 (GPIO + PiCamera):**
 ```bash
 pip install -r requirements-pi.txt
-```
-- **Desktop (mock / dev):**
-```bash
-pip install -r requirements-desktop.txt
 ```
 
 ### 3) Chuẩn bị model
@@ -88,7 +78,6 @@ pip install -r requirements-desktop.txt
 ---
 
 ## Mock mode
-- Dùng webcam OpenCV thay cho PiCamera.
 - Door/LED/servo giả lập (không cần GPIO).
 - Bật mock:
 ```bash
@@ -184,10 +173,9 @@ smart_doorbell/
 ├── gui/                    # PySide6 GUI (Live, People, About)
 ├── server/                 # FastAPI + event store + control
 ├── utils/                  # LCD I2C, helper utilities
-├── scripts/                # 1-lệnh chạy (run.sh, run.ps1)
+├── scripts/                # 1-lệnh chạy (run.sh)
 ├── requirements.txt        # Common deps
 ├── requirements-pi.txt     # Pi deps
-├── requirements-desktop.txt# Desktop deps
 ├── media/                  # Ảnh sự kiện
 ├── logs/                   # events.jsonl
 ├── sounds/                 # MP3 âm thanh

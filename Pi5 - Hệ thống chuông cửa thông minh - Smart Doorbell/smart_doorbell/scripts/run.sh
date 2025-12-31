@@ -2,15 +2,14 @@
 set -euo pipefail
 
 ENTRY="run_all.py"
-MODE="auto"
+MODE="pi"
 
 show_help() {
   cat <<'USAGE'
-Usage: ./scripts/run.sh [--mock] [--pi] [--gui] [--legacy]
+Usage: ./scripts/run.sh [--mock] [--gui] [--legacy]
 
 Options:
   --mock     Run in mock mode (no GPIO/servo, webcam OpenCV)
-  --pi       Force Pi mode (GPIO + Pi camera)
   --gui      Run GUI only (run_gui.py)
   --legacy   Run legacy flow (main.py)
   -h, --help Show this help
@@ -20,7 +19,6 @@ USAGE
 for arg in "$@"; do
   case "$arg" in
     --mock) MODE="mock" ;; 
-    --pi) MODE="pi" ;;
     --gui) ENTRY="run_gui.py" ;;
     --legacy) ENTRY="main.py" ;;
     -h|--help) show_help; exit 0 ;;
@@ -56,17 +54,7 @@ fi
 source .venv/bin/activate
 python -m pip install --upgrade pip
 
-REQ_EXTRA="requirements-desktop.txt"
-if [ "$MODE" = "pi" ]; then
-  REQ_EXTRA="requirements-pi.txt"
-elif [ "$MODE" = "auto" ]; then
-  arch=$(uname -m)
-  if [[ "$arch" == arm* || "$arch" == aarch64* ]]; then
-    REQ_EXTRA="requirements-pi.txt"
-  else
-    REQ_EXTRA="requirements-desktop.txt"
-  fi
-fi
+REQ_EXTRA="requirements-pi.txt"
 
 if [ "$MODE" = "mock" ]; then
   export SMART_DOORBELL_MODE="mock"
